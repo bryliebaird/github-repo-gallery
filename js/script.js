@@ -2,7 +2,8 @@ const overviewDiv = document.querySelector(".overview");
 const repoList = document.querySelector(".repo-list");
 const repoSection = document.querySelector(".repos");
 const repoDataSection = document.querySelector(".repo-data");
-const repoBtn = document.querySelector(".view-repos");
+const viewRepoBtn = document.querySelector(".view-repos");
+const filterInput = document.querySelector(".filter-repos");
 
 
 const username = "bryliebaird";
@@ -109,7 +110,28 @@ const displayRepoData = function(repoData, repoLanguages){
     div.classList.add("repo-data");
     repoDataSection.append(div);
 
-    repoBtn.classList.remove("hide");
-
+    viewRepoBtn.classList.remove("hide");
     
 }
+
+viewRepoBtn.addEventListener("click", function(){
+    repoDataSection.classList.add("hide");
+    repoSection.classList.remove("hide");
+    viewRepoBtn.classList.add("hide");
+})
+
+
+filterInput.addEventListener("input", function(e){
+    const searchText = e.target.value;
+    const searchLowerText = searchText.toLowerCase();
+    const repos = document.querySelectorAll(".repo");
+
+  for (const repo of repos) {
+    const repoLowerText = repo.innerText.toLowerCase();
+    if (repoLowerText.includes(searchLowerText)) {
+      repo.classList.remove("hide");
+    } else {
+      repo.classList.add("hide");
+    }
+  }
+})
